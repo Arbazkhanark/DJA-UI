@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .mainbox{
+            border:1px solid black;
+            background: gray;
+            width: 20%;
+            padding: 4px;
+            height: 200px;
+        }
+        .btn{
+            padding: 5px;
+            box-shadow: inset 61px -47px 32px -41px rgba(0,0,0,0.44);
+            width:50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            text-align: center;
+            border-right: 2px solid rgb(58, 57, 57);
+            border-radius: 5%;
+        }
+        button{
+            border:2px solid rgb(79, 110, 122);
+            background-color: rgb(78, 77, 77);
+            cursor: pointer;
+            width: 40px;
+            height: 55px;
+            border-radius: 40%;
+            color: rgb(70, 97, 107);
+            box-shadow: -2px 5px 50px 5px rgb(0, 0, 0);
+        }
+
+        .box{
+            height: 100px;
+            margin-top: 30px;
+            width: 50%;
+            text-align: center;
+            transform: rotate(90deg); 
+        }
+
+        input[type=range] {
+            height: 9px;
+            padding: 15px;
+            -webkit-appearance: none;
+            background: rgb(70, 69, 69);
+            border-radius: 30%;
+            margin: 10px 0;
+            width: 100%;
+            margin-top: 20px;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 12px;
+            cursor: pointer;
+            animate: 0.2s;
+            box-shadow: 1px 1px 2px #A6A6A6;
+            border-radius: 10px;
+            border: 2px solid rgb(128, 209, 241);
+            transition: background-color 0.2s ease;
+            background-color: var(--track-color, skyblue); /* Default color */
+        }
+        input[type=range]::-webkit-slider-thumb {
+            box-shadow: 1px 1px 2px #A6A6A6;
+            border: 10px solid rgb(94, 93, 93);
+            border-radius: 100%;
+            height: 40px;
+            width: 40px;
+            background: gray;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -17px;
+        }
+
+        .outer-box{
+            display: flex;
+            justify-content: space-between;
+            /* align-items: center; */
+            background-color: #5a5a5a;
+            border-radius: 5%;
+            padding:0px 0px;
+            height: 200px;
+        }
+
+        .active{
+            background-color: rgb(70, 69, 69);
+            border: 2px solid skyblue;
+            box-shadow: inset -2px 10px 57px 22px rgb(122, 120, 120);
+            color: white;
+        }
+        .svg{
+            margin-right: 10px;
+        }
+
+
+        @media only screen and (max-width: 479px) {
+            .mainbox{
+                width: 70%;
+            }
+        }
+
+        @media only screen and (min-width: 480px) and (max-width: 767px) {
+            .mainbox{
+                width: 50%;
+            }
+        }
+
+        @media only screen and (min-width: 768px) and (max-width: 1023px) {
+            .mainbox{
+                width: 20%;
+            }
+        }
+
+        @media only screen and (min-width: 1024px) {
+            .mainbox{
+                width: 20%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Hello</h1>
+    <div class="mainbox">
+        <div class="outer-box">
+            <div class="btn">
+                <div>
+                    <button id="btn1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-power svg"><path d="M12 2v10"/><path d="M18.4 6.6a9 9 0 1 1-12.77.04"/></svg></button>
+                </div>
+                <div>
+                    <button id="btn2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-power svg"><path d="M12 2v10"/><path d="M18.4 6.6a9 9 0 1 1-12.77.04"/></svg></button>
+                </div>
+            </div>
+            
+            <div class="box">
+                <div>
+                    <input type="range" name="" id="rangeInput" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const rangeInput = document.getElementById('rangeInput');
+        const btn1 = document.getElementById('btn1');
+        const btn2 = document.getElementById('btn2');
+
+        rangeInput.addEventListener('input', () => {
+            const value = rangeInput.value;
+            console.log(value);
+
+            let trackColor;
+
+            if (value > 70) {
+                // Use increase color
+                trackColor = 'hsl(178, 100%, 53.14%)';
+            } else if (value < 30) {
+                // Use decrease color
+                trackColor = 'hsl(207, 87%, 53.14%)';
+            } else {
+                // Use dynamic color based on brightness
+                const brightness = 100 - value;
+                trackColor = `hsl(197, 71%, ${brightness}%)`;
+            }
+
+            rangeInput.style.setProperty('--track-color', trackColor);
+                    
+        });
+        btn1.addEventListener("click",()=>{
+            btn1.classList.add("active");
+            btn2.classList.remove("active");
+        })
+        btn2.addEventListener("click",()=>{
+            btn2.classList.add("active");
+            btn1.classList.remove("active");
+        })
+    </script>
+</body>
+</html>
